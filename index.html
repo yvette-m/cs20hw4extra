@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Joe's Hotdog</title>
+<link rel="stylesheet" href="hotdog.css">
+<style type="text/css">
+    .item {width: 110px; display: inline-block;}
+    .price {width: 100px; display: inline-block; text-align: right;}
+</style>
+</head>
+
+<body>
+    <h2>Joe's Hotdog Stand</h2>
+    <h3>MENU</h3>
+
+    <script language="javascript">
+
+        //constant prices for each food item
+        const PRICES = [3.75, 3, 2.50];
+        const ITEMS = ["Hotdogs", "French Fries", "Drinks"];
+
+        //for loop to get the prompt for the user
+        for(let i = 0; i < 3; i++) {
+            if(i == 0){
+                numDogs = prompt("How many Hotdogs do you want?");
+            }else if(i == 1){
+                numFries = prompt("How many Fries do you want?");
+            }else if(i == 2)[
+                numSoda = prompt("How many Sodas do you want?")  
+            ]
+            //document.write("HELLO");
+        }
+            
+        //MENU
+        document.write("<br><br>")
+
+        //array for food and prices
+        var joe = new Array();
+        joe["food"] = "Hotdogs, Fries, Soda";
+        joe["prices"] = "$3.75, $3.00, $2.50";
+
+        document.write("Menu items: " + joe["food"] + "<br>");
+        document.write("Prices for above item: " + joe["prices"] + "<br>");
+        document.write("<br><br>")
+
+        //array for the amounts of each item
+        var amount = new Array();
+        amount["dogs"] = numDogs;
+        amount["fries"] = numFries;
+        amount["soda"] = numSoda;
+        document.write("Items purchased: " + joe["food"] + "<br>");
+        document.write("Quantity of each: " + amount["dogs"] + ", " + 
+        amount["fries"] + ", " + amount["soda"] + "<br>");
+        document.write("<br>");
+
+        //total of individual items
+        dog_total = numDogs*3.75;
+        fries_total = numFries*3;
+        soda_total = numSoda*2.5;
+
+        //make sure that all number have zeros
+        let dog = count(dog_total);
+        dtotals = add(dog, dog_total);
+
+        let fry = count(fries_total);
+        ftotals = add(fry, fries_total);
+
+        let soda = count(soda_total);
+        stotals = add(soda, soda_total);
+
+        //Print out the total spent on each individual item
+        document.write("Total spent on Hotdogs: $" + dtotals + "<br>");
+        document.write("Total spent on Fries: $" + ftotals + "<br>");
+        document.write("Total spent on Sodas: $" + stotals + "<br>");
+        document.write("<br><br>")
+
+        //set the discounted total to zero
+        discounted_total = 0;
+
+        //what the price of the items all add to
+        let total_amount = amount["dogs"] + amount["fries"] + amount["soda"];
+        let countdogs = numDogs;
+        let countfries = numFries;
+        let countsoda = numSoda;
+        total = 0;
+
+        //getting the total through use of for loop
+        for(let i = 0; i < total_amount; i++) {
+            if(countdogs > 0){
+                total = total + 3.75;
+                countdogs--;
+            }
+            if(countfries > 0){
+                total = total + 3;
+                countfries--;
+            }
+            if(countsoda > 0){
+                total = total + 2.5;
+                countsoda--;
+            }
+        }
+
+        //rounding the total
+        let before_round = roundit(total);
+
+        document.write("Subtotal before discount: $" + before_round + "<br>");
+
+        //checks to see if discount is applicable
+        if(total >= 25) {
+            discount = .1*total;
+            let discount_round = roundit(discount);
+            discounted_total = total - discount_round;
+            let discount_total_round = roundit(discounted_total);
+            document.write("Discount: $" + discount_round + "<br>");
+            document.write("Subtotal after discount: $" + discount_total_round + "<br>");
+        }
+
+        //make discounted equal to total if the discount was added
+        if(discounted_total != 0) {
+            total = discounted_total;
+        }
+
+        //calculate the MA tax and round it
+        tax = .0625*total;
+        let tax_round = roundit(tax);
+        
+        //gives the final total after discount and tax
+        final_total = total + tax_round;
+        let final_round = roundit(final_total);
+
+        //print the final prices and how much was paid in taxes
+        document.write("Tax amount: $" + tax_round + "<br>");
+        document.write("Final total: $" + final_round + "<br>");
+
+        //function to round numbers to be currency standards
+        function roundit(rounded) {
+            
+            let round = Math.round(rounded * 100) / 100;
+            let count_decimals = count(round);
+            let new_round = add(count_decimals, round);
+
+            document.write("");
+            return new_round;
+        }
+
+        function count(value) {
+            if(Math.floor(value) == value) {
+                return 0;
+            }
+            return value.toString().split(".")[1].length || 0;
+        }
+
+        function add(num_dec, round_it) {
+            if(num_dec == 1) {
+                round_it = round_it + '0';
+            }else if(num_dec == 0){
+                round_it = round_it + '.00';
+            }
+            return round_it;
+        }
+
+    </script>
+</body>
+</html>
